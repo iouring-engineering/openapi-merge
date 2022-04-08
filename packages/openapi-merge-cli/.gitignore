@@ -16,3 +16,4 @@
 # Generated files
 /result.swagger.yaml
 /out
+package-lock.json

@@ -11,3 +11,4 @@
 
 # don't lint nyc coverage output
 /coverage
+package-lock.json
