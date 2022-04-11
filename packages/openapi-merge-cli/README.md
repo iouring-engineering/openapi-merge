@@ -24,8 +24,22 @@ called `openapi-merge.json` by default, in your current directory. It should loo
         "stripStart": "/rest",
         "prepend": "/jira"
       },
-      "operationSelection": {
-        "includeTags": ["included"]
+       "operationSelection": {
+          "includeTags": [
+            "Login"
+          ],
+          "includePaths": [
+            {
+              "path": "/account/login/*",
+              "method": "post"
+            }
+          ],
+          "excludePaths": [
+            {
+              "path": "/account/login/*",
+              "method": "get"
+            }
+          ]
       },
       "description": {
         "append": true,
@@ -60,6 +74,8 @@ In this configuration you specify your inputs and your output file. For each inp
 * `pathModification.prepend`: When copying over the `paths` from your OpenAPI specification for this input, it will prepend this string to the start of the path if it is found. `prepend` will always run after `stripStart` so that it is deterministic.
 * `operationSelection.includeTags`: Only operations that are tagged with the tags configured here will be extracted from the OpenAPI file and merged with the others. This instruction will not remove other tags from the top level tags definition for this input.
 * `operationSelection.excludeTags`: Only operations that are NOT tagged with the tags configured here will be extracted from the OpenAPI file and merged with the others. Also, these tags will also be removed from the top level `tags` element for this file before being merged. If a single REST API operation has an `includeTags` reference and an `excludeTags` reference then the exclusion rule will take precidence.
+* `operationSelection.includePaths`: Operations which are tagged in `includeTags` and `excludeTags` also wants to include only specific paths from included tags.
+* `operationSelection.excludePaths`: Operations which are tagged in `includeTags` and `excludeTags` again wants to exclude few paths from those tags, this rule will do that.
 * `description.append`: All of the inputs with `append: true` will have their `info.description`s merged together, in order, and placed in the output OpenAPI file in the `info.description` section.
 * `description.title.value`: An optional string that lets you specify a custom section title for this input's description when it is merged together in the output OpenAPI file's `info.description` section
 * `description.title.headingLevel`: The integer heading level for the title, `1` to `6`. The default is `1`.
