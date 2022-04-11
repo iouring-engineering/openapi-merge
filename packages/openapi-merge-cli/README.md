@@ -1,6 +1,6 @@
-# openapi-merge-cli
+# iouring-openapi-merge-cli
 
-This tool is based on the [![npm](https://img.shields.io/npm/v/openapi-merge?label=openapi-merge&logo=npm)](https://bit.ly/2WnIytF) library. Please read
+This tool is based on the [![npm](https://img.shields.io/npm/v/openapi-merge?label=iouring-openapi-merge&logo=npm)](https://bit.ly/2WnIytF) library. Please read
 that README for more details on how the merging algorithm works.
 
 This library is intended to be used for merging multiple OpenAPI 3.0 files together. The most common reason that developers want to do this is because
