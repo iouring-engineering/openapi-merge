@@ -1,6 +1,6 @@
 # iouring-openapi-merge-cli
 
-This tool is based on the [![npm](https://img.shields.io/npm/v/openapi-merge?label=iouring-openapi-merge&logo=npm)](https://bit.ly/2WnIytF) library. Please read
+This tool is based on the [![npm](https://img.shields.io/npm/v/openapi-merge?label=iouring-openapi-merge&logo=npm)](https://www.npmjs.com/package/iouring-openapi-merge) library. Please read
 that README for more details on how the merging algorithm works.
 
 This library is intended to be used for merging multiple OpenAPI 3.0 files together. The most common reason that developers want to do this is because
@@ -83,7 +83,7 @@ In this configuration you specify your inputs and your output file. For each inp
 And then, once you have your Inputs in place and your configuration file you merely run the following in the directory that has your configuration file:
 
 ``` bash
-npx openapi-merge-cli
+npx iouring-openapi-merge-cli
 ```
 
 For more fine grained details on what `Configuration` options are available to you. [Please read the docs](https://github.com/robertmassaioli/openapi-merge/wiki/README).
@@ -91,11 +91,11 @@ For more fine grained details on what `Configuration` options are available to y
 If you wish, you may write your configuration file in YAML format and then run:
 
 ``` shell
-npx openapi-merge-cli --config path/to/openapi-merge.yaml
+npx iouring-openapi-merge-cli --config path/to/openapi-merge.yaml
 ```
 
 And the merge should be run and complete! Congratulations and enjoy!
 
 If you experience any issues then please [raise them in the bug tracker][1].
 
- [1]: https://github.com/robertmassaioli/openapi-merge/issues/new
+ [1]: https://github.com/iouring-engineering/openapi-merge/issues/new
