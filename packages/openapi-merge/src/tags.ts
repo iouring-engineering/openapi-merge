@@ -1,12 +1,20 @@
 import { MergeInput } from './data';
 import { Swagger } from 'atlassian-openapi';
 
-function getNonExcludedTags(originalTags: Swagger.Tag[], excludedTagNames: string[]): Swagger.Tag[] {
-  if (excludedTagNames.length === 0) {
+function filterTags(originalTags: Swagger.Tag[], excludedTagNames: string[], includedTagNames: string[]): Swagger.Tag[] {
+  if (excludedTagNames.length === 0 && includedTagNames.length === 0) {
     return originalTags;
   }
 
-  return originalTags.filter(tag => !excludedTagNames.includes(tag.name));
+  if (excludedTagNames.length > 0) {
+    originalTags = originalTags.filter(tag => !excludedTagNames.includes(tag.name))
+  }
+
+  if(includedTagNames.length > 0){
+    originalTags = originalTags.filter(tag => includedTagNames.includes(tag.name))
+  }
+
+  return originalTags;
 }
 
 export function mergeTags(inputs: MergeInput): Swagger.Tag[] | undefined {
@@ -18,9 +26,10 @@ export function mergeTags(inputs: MergeInput): Swagger.Tag[] | undefined {
     const { tags } = input.oas;
     if (tags !== undefined) {
       const excludeTags = operationSelection !== undefined && operationSelection.excludeTags !== undefined ? operationSelection.excludeTags : [];
-      const nonExcludedTags = getNonExcludedTags(tags, excludeTags);
+      const includeTags = operationSelection !== undefined && operationSelection.includeTags !== undefined ? operationSelection.includeTags : [];
+      const filteredTags = filterTags(tags, excludeTags, includeTags);
 
-      nonExcludedTags.forEach(tag => {
+      filteredTags.forEach(tag => {
         if (!seenTags.has(tag.name)) {
           seenTags.add(tag.name);
           result.push(tag);
