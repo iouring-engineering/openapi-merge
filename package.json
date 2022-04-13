@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "The parent openapi-merge package",
   "main": "index.js",
-  "repository": "git@github.com-personal:robertmassaioli/openapi-merge.git",
+  "repository": "https://github.com/iouring-engineering/openapi-merge",
   "author": "Robert Massaioli <robertmassaioli@gmail.com>",
   "license": "MIT",
   "private": false,

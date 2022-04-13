@@ -1,6 +1,6 @@
 {
-  "name": "iouring-openapi-merge",
-  "version": "1.3.5",
+  "name": "@iouring-engineering/openapi-merge",
+  "version": "1.3.6",
   "description": "A tool to merge numerous OpenAPI files into a single openapi definition.",
   "keywords": [
     "openapi",
@@ -19,10 +19,10 @@
   },
   "license": "MIT",
   "private": false,
-  "homepage": "https://github.com/robertmassaioli/openapi-merge",
-  "repository": "github:robertmassaioli/openapi-merge",
+  "homepage": "https://github.com/iouring-engineering/openapi-merge",
+  "repository": "https://github.com/iouring-engineering/openapi-merge",
   "bugs": {
-    "url": "https://github.com/robertmassaioli/openapi-merge/issues"
+    "url": "https://github.com/iouring-engineering/openapi-merge/issues"
   },
   "scripts": {
     "build": "tsc --project .",

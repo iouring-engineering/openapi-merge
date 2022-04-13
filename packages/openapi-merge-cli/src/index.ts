@@ -3,10 +3,10 @@ import { loadConfiguration } from "./load-configuration";
 import { Command } from 'commander';
 /* eslint-disable-next-line @typescript-eslint/no-var-requires */
 const pjson = require('../package.json');
-import { merge, MergeInput } from 'iouring-openapi-merge';
+import { merge, MergeInput } from '@iouring-engineering/openapi-merge';
 import fs from 'fs';
 import path from 'path';
-import { isErrorResult, SingleMergeInput } from "iouring-openapi-merge/dist/data";
+import { isErrorResult, SingleMergeInput } from "@iouring-engineering/openapi-merge/dist/data";
 import { Swagger } from "atlassian-openapi";
 import fetch from 'isomorphic-fetch';
 import yaml from 'js-yaml';
