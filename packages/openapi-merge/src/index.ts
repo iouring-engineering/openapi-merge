@@ -5,6 +5,7 @@ import { mergePathsAndComponents } from './paths-and-components';
 import { mergeExtensions } from './extensions';
 import { Swagger } from 'atlassian-openapi';
 import { mergeInfos } from './info';
+import { mergeServers } from './server';
 
 export { MergeInput, MergeResult, isErrorResult, PathModification, OperationSelection };
 
@@ -16,7 +17,7 @@ function getFirst<A>(inputs: Array<A>): A | undefined {
   return undefined;
 }
 
-function getFirstMatching<A, B>(inputs: Array<A>, extract: (input: A) => B | undefined): B | undefined {
+export function getFirstMatching<A, B>(inputs: Array<A>, extract: (input: A) => B | undefined): B | undefined {
   return getFirst(inputs.map(extract).filter(isPresent));
 }
 
@@ -42,7 +43,7 @@ export function merge(inputs: MergeInput): MergeResult {
     {
       openapi: '3.0.3',
       info: mergeInfos(inputs),
-      servers: getFirstMatching(inputs, input => input.oas.servers),
+      servers: mergeServers(inputs),
       externalDocs: getFirstMatching(inputs, input => input.oas.externalDocs),
       security: getFirstMatching(inputs, input => input.oas.security),
       tags: mergeTags(inputs),
