@@ -6,11 +6,14 @@ const pjson = require('../package.json');
 import { merge, MergeInput } from '@iouring-engineering/openapi-merge';
 import fs from 'fs';
 import path from 'path';
-import { isErrorResult, SingleMergeInput } from "@iouring-engineering/openapi-merge/dist/data";
+import {
+  isErrorResult, SingleMergeInput, MergeResult as MergeResultType
+} from "@iouring-engineering/openapi-merge/dist/data";
 import { Swagger } from "atlassian-openapi";
 import fetch from 'isomorphic-fetch';
 import yaml from 'js-yaml';
 import { readFileAsString, readYamlOrJSON } from "./file-loading";
+import { serverConfiguration } from "./server-configuration";
 
 const ERROR_LOADING_CONFIG = 1;
 const ERROR_LOADING_INPUTS = 2;
@@ -151,12 +154,16 @@ export async function main(): Promise<void> {
 
   logger.log(`## Loaded the inputs into memory, merging the results.`);
 
-  const mergeResult = merge(inputs);
+  const mergeResult: MergeResultType = merge(inputs);
 
   if (isErrorResult(mergeResult)) {
     console.error(`Error merging files: ${mergeResult.message} (${mergeResult.type})`);
     process.exit(ERROR_MERGING);
     return;
+  }
+
+  if (config.servers && config.servers.length > 0) {
+    mergeResult.output = serverConfiguration(mergeResult.output, config.servers)
   }
 
   const outputFullPath = path.join(basePath, config.output);
