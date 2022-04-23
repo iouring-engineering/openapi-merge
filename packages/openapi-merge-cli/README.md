@@ -62,7 +62,22 @@ called `openapi-merge.json` by default, in your current directory. It should loo
       }
     }
   ],
-  "output": "./output.swagger.json"
+  "output": "./output.swagger.json",
+  "servers": [
+        {
+            "url": "https://{environment}.nxtbolt.in",
+            "description": "Hosted environment",
+            "variables": {
+                "environment": {
+                    "default": "dev-api",
+                    "enum": [
+                        "dev-api"
+                    ],
+                    "description": "dev environment"
+                }
+            }
+        }
+  ],
 }
 ```
 
