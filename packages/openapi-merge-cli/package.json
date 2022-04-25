@@ -1,6 +1,6 @@
 {
   "name": "@iouring-engineering/openapi-merge-cli",
-  "version": "1.3.8",
+  "version": "1.4.0",
   "description": "A cli tool for the openapi-merge library.",
   "keywords": [
     "openapi",
@@ -41,7 +41,7 @@
     "es6-promise": "^4.2.8",
     "isomorphic-fetch": "^3",
     "js-yaml": "^3.14.0",
-    "@iouring-engineering/openapi-merge": "^1.3.5"
+    "@iouring-engineering/openapi-merge": "^1.3.7"
   },
   "scripts": {
     "build": "tsc --project .",
