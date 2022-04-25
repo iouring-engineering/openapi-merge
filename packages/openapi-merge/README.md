@@ -1,4 +1,4 @@
-# openapi-merge
+# @iouring-engineering/openapi-merge
 
 This library assumes that you have a number of microservices that you wish to expose through one main service or gateway.
 
@@ -8,7 +8,7 @@ deterministic manner, into a single OpenAPI specification.
 Many of the design decisions of this library have that use case in mind and thus the features will be geared to making that
 be a good experience.
 
-If you are looking for a CLI tool based on this library, then please check out: [![npm](https://img.shields.io/npm/v/openapi-merge-cli?label=openapi-merge-cli&logo=npm)](https://bit.ly/3bEVq3f)
+If you are looking for a CLI tool based on this library, then please check out: [![npm](https://img.shields.io/npm/v/@iouring-engineering/openapi-merge-cli?label=@iouring-engineering/openapi-merge-cli&logo=npm)](https://bit.ly/3bEVq3f)
 
 ## How to use this library
 
@@ -85,7 +85,7 @@ function main() {
 main();
 ```
 
-If you wish to play around with this example further, then please [fork this Repl](https://replit.com/@RobertMassaioli/openapi-merge-Example?v=1). 
+If you wish to play around with this example further, then please [fork this Repl](https://replit.com/@RobertMassaioli/openapi-merge-Example?v=1).
 
 ## Merging Behaviour
 
