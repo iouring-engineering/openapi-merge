@@ -2,7 +2,32 @@
 
 Welcome to the openapi-merge repository. This library is intended to be used for merging multiple OpenAPI 3.0 files together. The most common reason that developers want to do this is because they have multiple services that they wish to expose underneath a single API Gateway. Therefore, even though this merging logic is sufficiently generic to be used for most use cases, some of the feature decisions are tailored for that specific use case.
 
-This is an extension of npm library [openapi-merge](https://www.npmjs.com/package/openapi-merge), we forked existing library code from [Github](https://github.com/robertmassaioli/openapi-merge) to add some additional features according to our use cases.
+This is an extension of npm library [openapi-merge](https://www.npmjs.com/package/openapi-merge), we forked existing library code from [Github](https://github.com/robertmassaioli/openapi-merge) to add some additional features according to our micro services architecture.
+
+Requirements we had:
+
+- Exclude or Include Api in specific tag based on path(with pattern) and HTTP method
+    * Reason : We have two different micro services, admin and customer module which has same tag called Login and it has API's as below, here Login tag is common for both micro services, but only login API is common which we want to include in merge file and ignore account/get-customer from admin module.
+        * Admin Login:
+            1. account/login
+            2. account/get-customer
+
+        * Customer Login:
+            1. account/get-details
+            2. account/get-bills
+
+- Server config
+    * Reason : If we have multiple specifications, earlier implementation takes only first specification server config as final merged config, but consider we have different gateway for merged specification, we may need different server config to include in merged document.
+
+- Info title and description
+    * Reason : As we have multiple specifications, we cannot add first specification's title and description into merged specification, so we had included those configs to meet out requirements.
+
+Have brief understanding from below docs :
+
+* [@iouring-engineering/openapi-merge](https://github.com/robertmassaioli/openapi-merge/blob/main/packages/openapi-merge/README.md)
+
+* [@iouring-engineering/openapi-merge-cli](https://github.com/robertmassaioli/openapi-merge/blob/main/packages/openapi-merge-cli/README.md)
+
 ### Screenshots
 
 ![Imgur](https://i.imgur.com/GjnSXCS.png)
