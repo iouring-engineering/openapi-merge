@@ -92,13 +92,52 @@ In this configuration you specify your inputs and your output file. For each inp
 * `operationSelection.includeTags`: Only operations that are tagged with the tags configured here will be extracted from the OpenAPI file and merged with the others. This instruction will not remove other tags from the top level tags definition for this input.
 * `operationSelection.excludeTags`: Only operations that are NOT tagged with the tags configured here will be extracted from the OpenAPI file and merged with the others. Also, these tags will also be removed from the top level `tags` element for this file before being merged. If a single REST API operation has an `includeTags` reference and an `excludeTags` reference then the exclusion rule will take precidence.
 * `operationSelection.includePaths`: Operations which are tagged in `includeTags` and `excludeTags` also wants to include only specific paths from included tags.
+
+``` json
+{
+"includePaths": [
+      {
+        "path": "/account/portfolio/*",
+        "method": "get"
+      }
+],
+}
+ - path : exact or pattern match can be provided as input here, if path is a pattern match use `*` at the end as above.
+ - method: there might be a case that same path for multiple http methods, so additionally http method of path which we want to include should be given as input.
+```
+
 * `operationSelection.excludePaths`: Operations which are tagged in `includeTags` and `excludeTags` again wants to exclude few paths from those tags, this rule will do that.
+
+``` json
+{
+  "excludePaths": [
+        {
+          "path": "/account/portfolio/*",
+          "method": "get"
+        }
+  ],
+}
+ - path : Exact or pattern match can be provided as input here, if path is a pattern match use `*` at the end as above.
+ - method: As in excludePaths we may have multiple same path for multiple http methods, as per OpeanApi all the http methods can be input here.
+ Ex : Possible values are anyone from `'get' | 'put' | 'post' | 'delete' | 'options' | 'head' | 'patch' | 'trace'`
+
+```
+
 * `description.append`: All of the inputs with `append: true` will have their `info.description`s merged together, in order, and placed in the output OpenAPI file in the `info.description` section.
 * `description.title.value`: An optional string that lets you specify a custom section title for this input's description when it is merged together in the output OpenAPI file's `info.description` section
 * `description.title.headingLevel`: The integer heading level for the title, `1` to `6`. The default is `1`.
-* `servers`: Additional config for servers if we have more micro services and if we have separate server config, here exact server configs should be followed as per the Open api specification.
+* `servers`: Additional config for servers if we have more micro services and if we have separate server config, here exact server configs should be followed as per the OpenApi specification.
 * `title`: Title to show on the Info section of specification, if we want to show some different title when we have more micro services.
 * `description`: Title to show on the Info section of specification, if we want to show some different title when we have more micro services.
+
+result.yaml
+
+``` yaml
+info:
+  title: title test
+  description: description test from config
+
+```
 
 And then, once you have your Inputs in place and your configuration file you merely run the following in the directory that has your configuration file:
 

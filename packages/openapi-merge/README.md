@@ -65,6 +65,26 @@ function main() {
     oas: oas1,
     pathModification: {
       prepend: '/one'
+    },
+    operationSelection : {
+      includeTags : ["Login"],
+      excludeTags : ["Portfolio"],
+      includePaths: [
+        {
+          path: "/account/login/*";
+          method: "post";
+        }
+      ],
+      excludePaths : [
+        {
+          path: "/account/funds/*";
+          method: "post";
+        },
+        {
+          path: "/account/funds/*";
+          method: "get";
+        }
+      ]
     }
   }, {
     oas: oas2,
@@ -85,7 +105,7 @@ function main() {
 main();
 ```
 
-If you wish to play around with this example further, then please [fork this Repl](https://replit.com/@RobertMassaioli/openapi-merge-Example?v=1).
+If you wish to play around with this example further, then please [fork this Repo](https://github.com/iouring-engineering/openapi-merge).
 
 ## Merging Behaviour
 
