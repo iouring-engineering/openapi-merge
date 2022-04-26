@@ -24,9 +24,9 @@ Requirements we had:
 
 Have brief understanding from below docs :
 
-* [@iouring-engineering/openapi-merge](https://github.com/robertmassaioli/openapi-merge/blob/main/packages/openapi-merge/README.md)
+* [@iouring-engineering/openapi-merge](https://github.com/iouring-engineering/openapi-merge/blob/main/packages/openapi-merge/README.md)
 
-* [@iouring-engineering/openapi-merge-cli](https://github.com/robertmassaioli/openapi-merge/blob/main/packages/openapi-merge-cli/README.md)
+* [@iouring-engineering/openapi-merge-cli](https://github.com/iouring-engineering/openapi-merge/blob/main/packages/openapi-merge-cli/README.md)
 
 ### Screenshots
 
