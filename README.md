@@ -4,23 +4,32 @@ Welcome to the openapi-merge repository. This library is intended to be used for
 
 This is an extension of npm library [openapi-merge](https://www.npmjs.com/package/openapi-merge), we forked existing library code from [Github](https://github.com/robertmassaioli/openapi-merge) to add some additional features according to our micro services architecture.
 
-Requirements we had:
-
-- Exclude or Include Api in specific tag based on path(with pattern) and HTTP method
-    * Reason : We have two different micro services, admin and customer module which has same tag called Login and it has API's as below, here Login tag is common for both micro services, but only login API is common which we want to include in merge file and ignore account/get-customer from admin module.
-        * Admin Login:
-            1. account/login
-            2. account/get-customer
-
-        * Customer Login:
-            1. account/get-details
-            2. account/get-bills
-
+- Main motive of building following features is to extend the usability of in microservices environment with more control.
+In the merging of Openspec files from different service unit happens at the tag level. Tags from the openspec files becomes a section head in the generated API doc. There is no option to exclude or include certain services based on the URI path under the same tag from different microservice unit. Below is an example
+    * API-Gateway Login
+        1. /user/login
+        2. /user/get-access-token
+        3. Login service
+        4. /user/direct-login
+        5. /user/change-password
+        6. /user/logout
+        7. /user/forgot-password
+- If you want to disable /direct-login from Login microservice and use API Gateway Login in final openspecification file Below is the option,
+```json
+ "operationSelection": {
+                "excludePaths": [
+                    {
+                        "path": "/user/direct-login",
+                        "method": "post"
+                    }
+                ]
+            }
+```
 - Server config
-    * Reason : If we have multiple specifications, earlier implementation takes only first specification server config as final merged config, but consider we have different gateway for merged specification, we may need different server config to include in merged document.
+    * If we have multiple specifications along with api gateway, earlier implementation takes only first specification's server config as final specification, but consider we have different gateway for merged specification, we may need different server config to include in final specification.
 
 - Info title and description
-    * Reason : As we have multiple specifications, we cannot add first specification's title and description into merged specification, so we had included those configs to meet out requirements.
+    * As we have multiple specifications, we cannot add first specification's title and description into merged specification, so we had included those configs to meet out requirements in the merge config.
 
 Have brief understanding from below docs :
 
