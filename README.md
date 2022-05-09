@@ -2,7 +2,41 @@
 
 Welcome to the openapi-merge repository. This library is intended to be used for merging multiple OpenAPI 3.0 files together. The most common reason that developers want to do this is because they have multiple services that they wish to expose underneath a single API Gateway. Therefore, even though this merging logic is sufficiently generic to be used for most use cases, some of the feature decisions are tailored for that specific use case.
 
-This is an extension of npm library [openapi-merge](https://www.npmjs.com/package/openapi-merge), we forked existing library code from [Github](https://github.com/robertmassaioli/openapi-merge) to add some additional features according to our use cases.
+This is an extension of npm library [openapi-merge](https://www.npmjs.com/package/openapi-merge), we forked existing library code from [Github](https://github.com/robertmassaioli/openapi-merge) to add some additional features according to our micro services architecture.
+
+- Main motive of building following features is to extend the usability of in microservices environment with more control.
+In the merging of Openspec files from different service unit happens at the tag level. Tags from the openspec files becomes a section head in the generated API doc. There is no option to exclude or include certain services based on the URI path under the same tag from different microservice unit. Below is an example
+    * API-Gateway Login
+        1. /user/login
+        2. /user/get-access-token
+        3. Login service
+        4. /user/direct-login
+        5. /user/change-password
+        6. /user/logout
+        7. /user/forgot-password
+- If you want to disable /direct-login from Login microservice and use API Gateway Login in final openspecification file Below is the option,
+```json
+ "operationSelection": {
+                "excludePaths": [
+                    {
+                        "path": "/user/direct-login",
+                        "method": "post"
+                    }
+                ]
+            }
+```
+- Server config
+    * If we have multiple specifications along with api gateway, earlier implementation takes only first specification's server config as final specification, but consider we have different gateway for merged specification, we may need different server config to include in final specification.
+
+- Info title and description
+    * As we have multiple specifications, we cannot add first specification's title and description into merged specification, so we had included those configs to meet out requirements in the merge config.
+
+Have brief understanding from below docs :
+
+* [@iouring-engineering/openapi-merge](https://github.com/iouring-engineering/openapi-merge/blob/main/packages/openapi-merge/README.md)
+
+* [@iouring-engineering/openapi-merge-cli](https://github.com/iouring-engineering/openapi-merge/blob/main/packages/openapi-merge-cli/README.md)
+
 ### Screenshots
 
 ![Imgur](https://i.imgur.com/GjnSXCS.png)
