@@ -24,5 +24,10 @@
       "disputePrefix": "Conf"
     }
   ],
+  "info": {
+    "title": "title",
+    "description": "test description",
+    "version": "0.1"
+  },
   "output": "./result.swagger.yaml"
 }

@@ -1,4 +1,4 @@
-import { MergeInput, ErrorMergeResult, Dispute } from "./data";
+import { MergeInput, ErrorMergeResult, Dispute, PathModification } from "./data";
 import { Swagger, SwaggerLookup } from "atlassian-openapi";
 import { walkAllReferences } from "./reference-walker";
 import _ from 'lodash';
@@ -17,6 +17,25 @@ function removeFromStart(input: string, trim: string): string {
   }
 
   return input;
+}
+
+function addPrepend(pathModification: PathModification, originalPath: string): string {
+  let prependPath = pathModification.prepend ? pathModification.prepend : "";
+  if (pathModification.prepend && pathModification.excludePath && pathModification.excludePath.length > 0) {
+    pathModification.excludePath.forEach((path) => {
+      if (path.includes("*")) {
+        const regex = new RegExp(`^${path}`);
+        if (regex.test(originalPath)) {
+          prependPath = "";
+        }
+      } else {
+        if (path === originalPath) {
+          prependPath = "";
+        }
+      }
+    });
+  }
+  return prependPath;
 }
 
 type Components<A> = { [key: string]: A };
@@ -52,7 +71,7 @@ function processComponents<A>(results: Components<A>, components: Components<A>,
         }
 
         // Incrementally find the right prefix
-        for(let antiConflict = 1; schemaPlaced === false && antiConflict < 1000; antiConflict++) {
+        for (let antiConflict = 1; schemaPlaced === false && antiConflict < 1000; antiConflict++) {
           const trySchemaKey = `${key}${antiConflict}`;
 
           if (results[trySchemaKey] === undefined) {
@@ -197,7 +216,7 @@ export function mergePathsAndComponents(inputs: MergeInput): PathAndComponents |
     // Original references will be transformed to new non-conflicting references
     const referenceModification: { [originalReference: string]: string } = {};
 
-      // For each component in the original input, place it in the output with deduplicate taking place
+    // For each component in the original input, place it in the output with deduplicate taking place
     if (oas.components !== undefined) {
       const resultLookup = new SwaggerLookup.InternalLookup({ openapi: '3.0.1', info: { title: 'dummy', version: '0' }, paths: {}, components: result.components });
       const currentLookup = new SwaggerLookup.InternalLookup(oas);
@@ -282,7 +301,7 @@ export function mergePathsAndComponents(inputs: MergeInput): PathAndComponents |
     for (let pathIndex = 0; pathIndex < paths.length; pathIndex++) {
       const originalPath = paths[pathIndex];
 
-      const newPath = pathModification === undefined ? originalPath : `${pathModification.prepend || ''}${removeFromStart(originalPath, pathModification.stripStart || '')}`;
+      const newPath = pathModification === undefined ? originalPath : `${addPrepend(pathModification, originalPath) || ''}${removeFromStart(originalPath, pathModification.stripStart || '')}`;
 
       if (originalPath !== newPath) {
         referenceModification[`#/paths/${originalPath}`] = `#/paths/${newPath}`;

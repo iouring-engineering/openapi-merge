@@ -28,7 +28,7 @@ In the merging of Openspec files from different service unit happens at the tag 
 - Server config
     * If we have multiple specifications along with api gateway, earlier implementation takes only first specification's server config as final specification, but consider we have different gateway for merged specification, we may need different server config to include in final specification.
 
-- Info title and description
+- Info title, description and version
     * As we have multiple specifications, we cannot add first specification's title and description into merged specification, so we had included those configs to meet out requirements in the merge config.
 
 Have brief understanding from below docs :

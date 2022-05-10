@@ -37,6 +37,10 @@ export type PathModification = {
    * @minLength 1
    */
   prepend?: string;
+  /**
+   * To exclude specific paths from adding prepend paths
+   */
+  excludePath?: string[];
 }
 
 export type DescriptionMergeBehaviour = {
@@ -215,8 +219,7 @@ export type Configuration = {
    */
   inputs: ConfigurationInput[];
   servers?: Swagger.Server[];
-  title?: string;
-  description?: string;
+  info?: Swagger.Info;
   /**
    * The output file to put the results in. If you use the .yml or .yaml extension then the schema will be output
    * in YAML format, otherwise, it will be output in JSON format.

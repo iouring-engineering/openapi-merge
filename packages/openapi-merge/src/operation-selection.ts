@@ -12,9 +12,15 @@ function operationContainsAnyTag(operation: Swagger.Operation, tags: string[]): 
 
 function operationContainsAnyPath(currentPath: string, method: Swagger.Method, pathConfigs: PathConfig[]): boolean {
   return currentPath !== undefined && pathConfigs.some(pathConfig => {
-    const regex = new RegExp(`^${pathConfig.path}`);
-    if (regex.test(currentPath) && method.toLowerCase() === pathConfig.method.toLowerCase()) {
-      return true;
+    if (pathConfig.path && pathConfig.path.includes("*")) {
+      const regex = new RegExp(`^${pathConfig.path}`);
+      if (regex.test(currentPath) && method.toLowerCase() === pathConfig.method.toLowerCase()) {
+        return true;
+      }
+    } else {
+      if (currentPath === pathConfig.path && method.toLowerCase() === pathConfig.method.toLowerCase()) {
+        return true;
+      }
     }
     return false;
   });

@@ -95,6 +95,7 @@ export type SingleMergeInput = SingleMergeInputV1 | SingleMergeInputV2;
 export type PathModification = {
   stripStart?: string;
   prepend?: string;
+  excludePath?: string[];
 };
 
 export type DescriptionMergeBehaviour = {
