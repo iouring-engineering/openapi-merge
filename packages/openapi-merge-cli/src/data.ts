@@ -37,6 +37,10 @@ export type PathModification = {
    * @minLength 1
    */
   prepend?: string;
+  /**
+   * To exclude specific paths from adding prepend paths
+   */
+  excludePath?: string[];
 }
 
 export type DescriptionMergeBehaviour = {
