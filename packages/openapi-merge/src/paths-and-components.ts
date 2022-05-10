@@ -20,21 +20,22 @@ function removeFromStart(input: string, trim: string): string {
 }
 
 function addPrepend(pathModification: PathModification, originalPath: string): string {
+  let prependPath = pathModification.prepend ? pathModification.prepend : "";
   if (pathModification.prepend && pathModification.excludePath && pathModification.excludePath.length > 0) {
     pathModification.excludePath.forEach((path) => {
-      if(path.includes("*")){
+      if (path.includes("*")) {
         const regex = new RegExp(`^${path}`);
         if (regex.test(originalPath)) {
-          return pathModification.prepend;
+          prependPath = "";
         }
       } else {
-        if(path === originalPath){
-          return pathModification.prepend;
+        if (path === originalPath) {
+          prependPath = "";
         }
       }
     });
   }
-  return "";
+  return prependPath;
 }
 
 type Components<A> = { [key: string]: A };
