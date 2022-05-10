@@ -78,8 +78,11 @@ called `openapi-merge.json` by default, in your current directory. It should loo
             }
         }
   ],
-  "title": "example tile",
-  "description": "Config example description for open-merge-cli"
+  "info":{
+    "title": "example tile",
+    "description": "Config example description for open-merge-cli",
+    "version":"0.1"
+  }
 }
 ```
 
@@ -89,6 +92,7 @@ In this configuration you specify your inputs and your output file. For each inp
 * `dispute`: if two inputs both define a component with the same name then, in order to prevent incorrect overlaps, we will attempt to use the dispute prefix or suffix to come up with a unique name for that component. Please [read the documentation for more details on the format](https://github.com/iouring-engineering/openapi-merge/wiki/configuration-definitions-dispute).
 * `pathModification.stripStart`: When copying over the `paths` from your OpenAPI specification for this input, it will strip this string from the start of the path if it is found.
 * `pathModification.prepend`: When copying over the `paths` from your OpenAPI specification for this input, it will prepend this string to the start of the path if it is found. `prepend` will always run after `stripStart` so that it is deterministic.
+* `pathModification.excludePath`: When copying and if you already added any prepends and wants to exclude any API's from adding you can include that path as array using this, it also allows to exclude based on patterns like `/account*`.
 * `operationSelection.includeTags`: Only operations that are tagged with the tags configured here will be extracted from the OpenAPI file and merged with the others. This instruction will not remove other tags from the top level tags definition for this input.
 * `operationSelection.excludeTags`: Only operations that are NOT tagged with the tags configured here will be extracted from the OpenAPI file and merged with the others. Also, these tags will also be removed from the top level `tags` element for this file before being merged. If a single REST API operation has an `includeTags` reference and an `excludeTags` reference then the exclusion rule will take precidence.
 * `operationSelection.includePaths`: Operations which are tagged in `includeTags` and `excludeTags` also wants to include only specific paths from included tags.
@@ -127,8 +131,9 @@ In this configuration you specify your inputs and your output file. For each inp
 * `description.title.value`: An optional string that lets you specify a custom section title for this input's description when it is merged together in the output OpenAPI file's `info.description` section
 * `description.title.headingLevel`: The integer heading level for the title, `1` to `6`. The default is `1`.
 * `servers`: Additional config for servers if we have more micro services and if we have separate server config, here exact server configs should be followed as per the OpenApi specification.
-* `title`: Title to show on the Info section of specification, if we want to show some different title when we have more micro services.
-* `description`: Title to show on the Info section of specification, if we want to show some different title when we have more micro services.
+* `info.title`: Title to show on the Info section of specification, if we want to show some different title when we have more micro services.
+* `info.description`: Title to show on the Info section of specification, if we want to show some different title when we have more micro services.
+* `info.version`: Title to show on the Info section of specification, if we want to show some different title when we have more micro services.
 
 result.yaml
 
@@ -136,6 +141,7 @@ result.yaml
 info:
   title: title test
   description: description test from config
+  version: 0.1
 
 ```
 
