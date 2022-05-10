@@ -14,7 +14,7 @@ import fetch from 'isomorphic-fetch';
 import yaml from 'js-yaml';
 import { readFileAsString, readYamlOrJSON } from "./file-loading";
 import { serverConfiguration } from "./server-configuration";
-import { additionalInfoDescription, additionalInfoTitle } from "./info-configuration";
+import { additionalInfo } from "./info-configuration";
 
 const ERROR_LOADING_CONFIG = 1;
 const ERROR_LOADING_INPUTS = 2;
@@ -168,10 +168,8 @@ export async function main(): Promise<void> {
   }
 
 
-  if (config.title)
-    mergeResult.output = additionalInfoTitle(mergeResult.output, config.title);
-  if (config.description)
-    mergeResult.output = additionalInfoDescription(mergeResult.output, config.description);
+  if (config.info)
+    mergeResult.output = additionalInfo(mergeResult.output, config.info);
 
   const outputFullPath = path.join(basePath, config.output);
   logger.log(`## Inputs merged, writing the results out to '${outputFullPath}'`);
