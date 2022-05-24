@@ -155,7 +155,8 @@ Example config:
     ]
 ```
 
-* `pathsOrder`: To sort individual endpoint operations, we have to pass exact path with prepend route to `pathsOrder` field in merge config json, this brings mentioned paths at top of the openapi specification and others below to that.
+* `pathsOrder`: To sort individual endpoint operations, pass exact path with prepend route to `pathsOrder` field in merge config json, this brings mentioned paths at top of the openapi specification and others below to that.
+With following example mentioned below, `/api-gw/oauth/authorize` and `/api-gw/oauth/token` paths will be moved to the top section with in the tag.
 
 ```json
     "pathsOrder": [
