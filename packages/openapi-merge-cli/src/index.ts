@@ -15,7 +15,7 @@ import yaml from 'js-yaml';
 import { readFileAsString, readYamlOrJSON } from "./file-loading";
 import { serverConfiguration } from "./server-configuration";
 import { additionalInfo } from "./info-configuration";
-import { sortTags } from "./paths-and-components";
+import { sortPaths, sortTags } from "./paths-and-components";
 
 const ERROR_LOADING_CONFIG = 1;
 const ERROR_LOADING_INPUTS = 2;
@@ -174,6 +174,10 @@ export async function main(): Promise<void> {
 
   if(config.tagOrder){
     mergeResult.output = sortTags(mergeResult.output, config.tagOrder)
+  }
+
+  if(config.pathsOrder){
+    mergeResult.output = sortPaths(mergeResult.output, config.pathsOrder)
   }
 
   const outputFullPath = path.join(basePath, config.output);

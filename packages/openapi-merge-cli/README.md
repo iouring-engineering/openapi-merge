@@ -155,6 +155,14 @@ Example config:
     ]
 ```
 
+* `pathsOrder`: To sort individual endpoint operations, we have to pass exact path with prepend route to `pathsOrder` field in merge config json, this brings mentioned paths at top of the openapi specification and others below to that.
+
+```json
+    "pathsOrder": [
+        "/api-gw/oauth/authorize",
+        "/api-gw/oauth/token"
+    ]
+```
 
 And then, once you have your Inputs in place and your configuration file you merely run the following in the directory that has your configuration file:
 
