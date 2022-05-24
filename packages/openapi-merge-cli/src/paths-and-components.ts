@@ -30,7 +30,37 @@ export function sortTags(output: Swagger.SwaggerV3, tags: string[]): Swagger.Swa
             }
         });
         sortedTags = sortedTags.concat(addMissedOutTags(output.tags, sortedTags))
+        output.tags = sortedTags;
     }
-    output.tags = sortedTags;
     return output
+}
+
+function getPathData(paths: Swagger.Paths, pathString: string): Swagger.PathItem {
+    return paths[pathString];
+}
+
+function addMissedOutPaths(paths: Swagger.Paths, sortedPaths: Swagger.Paths): Swagger.PathItem {
+    const finalPaths: Swagger.Paths = {};
+    for (const pathName in paths) {
+        if (!sortedPaths[pathName]) {
+            finalPaths[pathName] = paths[pathName];
+        }
+    }
+    return finalPaths;
+}
+
+
+export function sortPaths(output: Swagger.SwaggerV3, paths: string[]): Swagger.SwaggerV3 {
+    const sortedPaths: Swagger.Paths = {};
+    if (output.paths && output.tags) {
+        paths.forEach((item) => {
+            sortedPaths[item] = getPathData(output.paths, item);
+        });
+        const missedPaths = addMissedOutPaths(output.paths, sortedPaths);
+        for (const pt in missedPaths) {
+            sortedPaths[pt] = output.paths[pt];
+        }
+        output.paths = sortedPaths;
+    }
+    return output;
 }
