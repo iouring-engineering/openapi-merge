@@ -145,6 +145,17 @@ info:
 
 ```
 
+* `tagOrder`: Since we may have multiple api specifications, if there is an requirement that we have to get our result in some sorted order based on tags, `tagOrder` input allows to sort the tags, tags which are not included in this array will result in existing order based on specification file input order, Please note that tags inputs are case sensitive.
+
+Example config:
+
+```json
+    "tagOrder": [
+        "Symbols"
+    ]
+```
+
+
 And then, once you have your Inputs in place and your configuration file you merely run the following in the directory that has your configuration file:
 
 ``` bash
