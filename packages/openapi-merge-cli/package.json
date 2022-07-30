@@ -1,6 +1,6 @@
 {
   "name": "@iouring-engineering/openapi-merge-cli",
-  "version": "1.4.6",
+  "version": "1.4.7",
   "description": "A cli tool for the openapi-merge library.",
   "keywords": [
     "openapi",

@@ -66,17 +66,17 @@ export function sortPaths(output: Swagger.SwaggerV3, paths: string[]): Swagger.S
 }
 
 export function addCommonHeader(output: Swagger.SwaggerV3, headers: Swagger.Parameter[]): Swagger.SwaggerV3 {
-    const pathsWithheaders: Swagger.Paths = {};
+    const pathsWithHeaders: Swagger.Paths = {};
     if (output.paths) {
         for (const pt in output.paths) {
-            pathsWithheaders[pt] = getPathData(output.paths, pt);
-            if (pathsWithheaders[pt].parameters) {
-                pathsWithheaders[pt].parameters?.concat(headers);
-            } else {
-                pathsWithheaders[pt].parameters = headers;
+            pathsWithHeaders[pt] = getPathData(output.paths, pt);
+            if (pathsWithHeaders[pt] && pathsWithHeaders[pt].parameters) {
+                pathsWithHeaders[pt].parameters?.concat(headers);
+            } else if (pathsWithHeaders[pt]) {
+                pathsWithHeaders[pt].parameters = headers;
             }
         }
-        output.paths = pathsWithheaders;
+        output.paths = pathsWithHeaders;
     }
     return output;
 }
