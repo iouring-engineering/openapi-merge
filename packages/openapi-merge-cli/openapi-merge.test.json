@@ -29,5 +29,25 @@
     "description": "test description",
     "version": "0.1"
   },
+  "headers": [
+    {
+      "name": "X-BUILD",
+      "in": "header",
+      "required": true,
+      "schema": {
+        "type": "string"
+      },
+      "description": "device info"
+    },
+    {
+      "name": "X-DEVICE",
+      "in": "header",
+      "required": true,
+      "schema": {
+        "type": "string"
+      },
+      "description": "device info"
+    }
+  ],
   "output": "./result.swagger.yaml"
 }
