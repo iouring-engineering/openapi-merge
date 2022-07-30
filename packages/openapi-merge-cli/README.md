@@ -165,6 +165,22 @@ With following example mentioned below, `/api-gw/oauth/authorize` and `/api-gw/o
     ]
 ```
 
+* `headers`: To include some headers commonly in all the paths, here headers are of type Parameter from OpenApi, which accepts fields as in below example.
+
+```json
+    "headers": [
+    {
+      "name": "X-BUILD",
+      "in": "header",
+      "required": true,
+      "schema": {
+        "type": "string"
+      },
+      "description": "device info"
+    }
+  ],
+```
+
 And then, once you have your Inputs in place and your configuration file you merely run the following in the directory that has your configuration file:
 
 ``` bash

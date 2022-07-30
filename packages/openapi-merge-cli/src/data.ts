@@ -229,4 +229,5 @@ export type Configuration = {
    * @minLength 1
    */
   output: string;
+  headers: Swagger.Parameter[];
 };
