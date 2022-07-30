@@ -1,0 +1,4 @@
+## [1.0.0] - 30-07-2022
+### Added
+ - Provision to add common headers in all paths included
+ - openapi-merge-cli schema updated for common headers
