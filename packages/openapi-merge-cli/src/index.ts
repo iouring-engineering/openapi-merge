@@ -180,7 +180,7 @@ export async function main(): Promise<void> {
     mergeResult.output = sortPaths(mergeResult.output, config.pathsOrder)
   }
 
-  if (config.headers.length > 0) {
+  if (config.headers && config.headers.length > 0) {
     mergeResult.output = addCommonHeader(mergeResult.output, config.headers)
   }
 
