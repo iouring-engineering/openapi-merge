@@ -80,3 +80,40 @@ export function addCommonHeader(output: Swagger.SwaggerV3, headers: Swagger.Para
     }
     return output;
 }
+
+function getAllRefs(obj: Record<string, any>): string[] {
+    const refs = [];
+    for (const key in obj) {
+        if (typeof obj[key] === "object") {
+            const res: Array<string> = getAllRefs(obj[key]);
+            for (const itrKey in res) {
+                refs.push(res[itrKey]);
+            }
+        }
+        if (key === "$ref") {
+            refs.push(obj[key])
+        }
+    }
+    return refs;
+}
+
+function removeRefPath(refPath: string): string {
+    return refPath.replace("#/components/schemas/", "");
+}
+
+function isSchemaUsed(refs: string[], schemaName: string): boolean {
+    return refs.includes(schemaName);
+}
+
+export function removeUnusedSchemas(output: Swagger.SwaggerV3): Swagger.SwaggerV3 {
+    const refs = getAllRefs(output);
+    for (const ind in refs) {
+        refs[ind] = removeRefPath(refs[ind]);
+    }
+    for (const schemaName in output.components?.schemas) {
+        if (!isSchemaUsed(refs, schemaName)) {
+            delete output.components?.schemas[schemaName];
+        }
+    }
+    return output;
+}

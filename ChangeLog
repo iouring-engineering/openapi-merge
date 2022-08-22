@@ -1,4 +1,8 @@
-## [1.0.0] - 30-07-2022
+## [1.4.8] - 22-08-2022
+### Changes
+ - Removing unused schemas in final specification file
+
+## [1.4.7] - 30-07-2022
 ### Added
  - Provision to add common headers in all paths included
  - openapi-merge-cli schema updated for common headers
