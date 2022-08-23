@@ -105,14 +105,27 @@ function isSchemaUsed(refs: string[], schemaName: string): boolean {
     return refs.includes(schemaName);
 }
 
+function removeDuplicates(refs: string[]): string[] {
+    return [...new Set(refs)];
+}
+
 export function removeUnusedSchemas(output: Swagger.SwaggerV3): Swagger.SwaggerV3 {
-    const refs = getAllRefs(output);
-    for (const ind in refs) {
-        refs[ind] = removeRefPath(refs[ind]);
-    }
-    for (const schemaName in output.components?.schemas) {
-        if (!isSchemaUsed(refs, schemaName)) {
-            delete output.components?.schemas[schemaName];
+    // eslint-disable-next-line no-constant-condition
+    while (true) {
+        let refs = getAllRefs(output);
+        for (const ind in refs) {
+            refs[ind] = removeRefPath(refs[ind]);
+        }
+        refs = removeDuplicates(refs);
+
+        const schemas = output.components && output.components.schemas ? output.components.schemas : {};
+        if (refs.length === Object.keys(schemas).length) {
+            break;
+        }
+        for (const schemaName in output.components?.schemas) {
+            if (!isSchemaUsed(refs, schemaName)) {
+                delete output.components?.schemas[schemaName];
+            }
         }
     }
     return output;
