@@ -1,3 +1,7 @@
+## [1.4.9] - 23-08-2022
+### Changes
+ - Removing unused schemas in inner refs of schemas inside components
+
 ## [1.4.8] - 22-08-2022
 ### Changes
  - Removing unused schemas in final specification file
