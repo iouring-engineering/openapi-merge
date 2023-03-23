@@ -1,6 +1,6 @@
 {
   "name": "openapi-merge",
-  "version": "1.0.0",
+  "version": "1.1.34",
   "description": "The parent openapi-merge package",
   "main": "index.js",
   "repository": "https://github.com/iouring-engineering/openapi-merge",
