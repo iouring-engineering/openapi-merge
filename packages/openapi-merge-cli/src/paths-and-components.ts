@@ -98,8 +98,7 @@ function getAllRefs(obj: Record<string, any>): string[] {
 }
 
 const compKeys = [
-    // "schemas", "responses", "parameters", "examples", "requestBodies", "headers", "links", "callbacks"
-    "schemas"
+    "schemas", "responses", "parameters", "examples", "requestBodies", "headers", "links", "callbacks"
 ]
 
 function getFilteredRefs(refs: string[], componentKey: string): string[] {
@@ -108,22 +107,22 @@ function getFilteredRefs(refs: string[], componentKey: string): string[] {
     })
 }
 
-function deleteKey(output: Swagger.SwaggerV3, section: string, model: string): void{
+function deleteKey(output: Swagger.SwaggerV3, section: string, model: string): void {
     if (section === "schemas") {
         output.components?.schemas && delete output.components?.schemas[model]
-    }else if (section === "responses") {
+    } else if (section === "responses") {
         output.components?.responses && delete output.components?.responses[model]
-    }else if (section === "parameters") {
+    } else if (section === "parameters") {
         output.components?.parameters && delete output.components?.parameters[model]
-    }else if (section === "examples") {
+    } else if (section === "examples") {
         output.components?.examples && delete output.components?.examples[model]
-    }else if (section === "requestBodies") {
+    } else if (section === "requestBodies") {
         output.components?.requestBodies && delete output.components?.requestBodies[model]
-    }else if (section === "headers") {
+    } else if (section === "headers") {
         output.components?.headers && delete output.components?.headers[model]
-    }else if (section === "links") {
+    } else if (section === "links") {
         output.components?.links && delete output.components?.links[model]
-    }else if (section === "callbacks") {
+    } else if (section === "callbacks") {
         output.components?.callbacks && delete output.components?.callbacks[model]
     }
 }
