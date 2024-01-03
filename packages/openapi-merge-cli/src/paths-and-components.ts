@@ -97,34 +97,49 @@ function getAllRefs(obj: Record<string, any>): string[] {
     return refs;
 }
 
-function removeRefPath(refPath: string): string {
-    return refPath.replace("#/components/schemas/", "");
+const compKeys = [
+    "schemas", "responses", "parameters", "examples", "requestBodies", "headers", "links", "callbacks"
+]
+
+function getFilteredRefs(refs: string[], componentKey: string): string[] {
+    return refs.filter((value) => {
+        return value.includes(`#/components/${componentKey}/`)
+    })
 }
 
-function isSchemaUsed(refs: string[], schemaName: string): boolean {
-    return refs.includes(schemaName);
+function deleteKey(output: Swagger.SwaggerV3, section: string, model: string): void {
+    if (section === "schemas") {
+        output.components?.schemas && delete output.components?.schemas[model]
+    } else if (section === "responses") {
+        output.components?.responses && delete output.components?.responses[model]
+    } else if (section === "parameters") {
+        output.components?.parameters && delete output.components?.parameters[model]
+    } else if (section === "examples") {
+        output.components?.examples && delete output.components?.examples[model]
+    } else if (section === "requestBodies") {
+        output.components?.requestBodies && delete output.components?.requestBodies[model]
+    } else if (section === "headers") {
+        output.components?.headers && delete output.components?.headers[model]
+    } else if (section === "links") {
+        output.components?.links && delete output.components?.links[model]
+    } else if (section === "callbacks") {
+        output.components?.callbacks && delete output.components?.callbacks[model]
+    }
 }
 
-function removeDuplicates(refs: string[]): string[] {
-    return [...new Set(refs)];
-}
-
+type CompKey = keyof Swagger.Components;
 export function removeUnusedSchemas(output: Swagger.SwaggerV3): Swagger.SwaggerV3 {
     // eslint-disable-next-line no-constant-condition
-    while (true) {
-        let refs = getAllRefs(output);
-        for (const ind in refs) {
-            refs[ind] = removeRefPath(refs[ind]);
-        }
-        refs = removeDuplicates(refs);
-
-        const schemas = output.components && output.components.schemas ? output.components.schemas : {};
-        if (refs.length === Object.keys(schemas).length) {
-            break;
-        }
-        for (const schemaName in output.components?.schemas) {
-            if (!isSchemaUsed(refs, schemaName)) {
-                delete output.components?.schemas[schemaName];
+    const refs = getAllRefs(output);
+    for (const section in output.components) {
+        if (compKeys.includes(section)) {
+            const key = section as CompKey
+            const keysInSection = Object.keys(output.components[key] as object)
+            const filtered = getFilteredRefs(refs, key)
+            for (const model of keysInSection) {
+                if (!filtered.includes(`#/components/${key}/${model}`)) {
+                    deleteKey(output, section, model)
+                }
             }
         }
     }
